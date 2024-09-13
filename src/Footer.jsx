@@ -11,7 +11,6 @@ const Footer = () => {
         py: 2,
         textAlign: 'center',
         width: '100%',
-        position: 'fixed',
         bottom: 0,
         left: 0,
         boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.3)', // Adds a shadow for depth
