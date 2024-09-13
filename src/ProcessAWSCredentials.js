@@ -4,6 +4,7 @@ import { ContentCopy } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"; // Dark theme
+import Footer from "./Footer";
 
 const ProcessAWSCredentials = () => {
     const [inputValue, setInputValue] = useState("");
@@ -121,6 +122,7 @@ const ProcessAWSCredentials = () => {
                     </SyntaxHighlighter>
                 </Box>
             )}
+            <Footer />
         </Box>
     );
 };
