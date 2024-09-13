@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { TextField, Button, Box, Typography, IconButton } from "@mui/material";
-import { ContentCopy } from "@mui/icons-material";
-import { toast } from "react-toastify";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"; // Dark theme
-import Footer from "./Footer";
+import React, { useState } from 'react';
+import { Box, Typography, Button, TextField, IconButton } from '@mui/material';
+import { toast } from 'react-toastify';
+import ContentCopy from '@mui/icons-material/ContentCopy';
+import Footer from './Footer'; // Assuming your footer is a separate component
 
 const ProcessAWSCredentials = () => {
     const [inputValue, setInputValue] = useState("");
@@ -30,7 +28,7 @@ const ProcessAWSCredentials = () => {
 
         // Check if the input starts with 'aws_secret_access_key'
         if (!inputValue.trim().startsWith("aws_secret_access_key")) {
-            toast.error("Invalid credentials format!");
+            toast.error("Invalid credentials format !");
             return;
         }
 
@@ -50,78 +48,64 @@ const ProcessAWSCredentials = () => {
     };
 
     return (
-        <Box sx={{ padding: "10px", backgroundColor: "#f5f5f5", borderRadius: "8px", margin: "0 auto", textAlign: "center" }}>
-            {/* Headline */}
-            <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2", textShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)" }}>
-                AWS Credentials Processor
-            </Typography>
+        <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+            {/* Main Content */}
+            <Box sx={{ flex: 1, overflowY: 'auto', padding: '20px', backgroundColor: '#f5f5f5' }}>
+                {/* Headline */}
+                <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2", textShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)" }}>
+                    AWS Credentials Processor
+                </Typography>
 
-            {/* Tagline */}
-            <Typography variant="h6" gutterBottom sx={{ fontStyle: "italic", color: "#555" }}>
-                Get your AWS credentials in the correct format, instantly.
-            </Typography>
+                {/* Tagline */}
+                <Typography variant="h6" gutterBottom sx={{ fontStyle: "italic", color: "#555", marginBottom: "30px" }}>
+                    Get your credentials in the correct format
+                </Typography>
 
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    label="Paste Credentials Here"
-                    multiline
-                    rows={10}
-                    fullWidth
-                    variant="outlined"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Paste credentials here"
-                    error={error}
-                    helperText={error ? "Input is required" : ""}
-                    sx={{ mb: 2 }}
-                    required
-                />
+                {/* Form */}
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        label="Paste Credentials Here"
+                        multiline
+                        rows={10}
+                        fullWidth
+                        variant="outlined"
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        placeholder="Paste credentials here"
+                        error={error}
+                        helperText={error ? "Input is required" : ""}
+                        sx={{ mb: 2 }}
+                        required
+                    />
 
-                <Box sx={{ display: 'flex', gap: 2, justifyContent: "flex-end" }}>
-                    <Button type="submit" variant="contained" color="primary">
-                        Process
-                    </Button>
-                    <Button variant="outlined" color="secondary" onClick={handleReset}>
-                        Reset
-                    </Button>
-                </Box>
-            </form>
+                    <Box sx={{ display: 'flex', gap: 2, float: 'right' }}>
+                        <Button type="submit" variant="contained" color="primary">
+                            Process
+                        </Button>
+                        <Button variant="outlined" color="secondary" onClick={handleReset}>
+                            Reset
+                        </Button>
+                    </Box>
+                </form>
 
-            {outputValue && (
-                <Box mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f5f5f5', padding: '16px', }}>
-                    <IconButton
-                        onClick={handleCopy}
-                        sx={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: '#fff', '&:hover': { backgroundColor: '#f0f0f0' } }}
-                    >
-                        <ContentCopy />
-                    </IconButton>
+                {/* Output */}
+                {outputValue && (
+                    <Box mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#000', padding: '16px', fontFamily: 'monospace', color: '#fff', overflowX: 'auto' }}>
+                        <IconButton
+                            onClick={handleCopy}
+                            sx={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: '#fff', '&:hover': { backgroundColor: '#f0f0f0' } }}
+                        >
+                            <ContentCopy />
+                        </IconButton>
+                        <Typography variant="h6" gutterBottom>Processed Credentials:</Typography>
+                        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word', margin: 0 }}>
+                            {outputValue}
+                        </pre>
+                    </Box>
+                )}
+            </Box>
 
-                    <Typography sx={{ textAlign: "left", color: '#1976d2' }} variant="h6" gutterBottom>Processed Credentials:</Typography>
-
-                    {/* Code highlighter */}
-                    <SyntaxHighlighter
-                        language="bash"
-                        style={materialDark} // Dark theme for black background
-                        showLineNumbers={true}
-                        wrapLines={true}
-                        customStyle={{
-                            backgroundColor: "#000", // Set background to black
-                            padding: "16px",
-                            borderRadius: "8px",
-                            fontSize: "14px",
-                            overflowX: "auto",
-                            color: "#fff", // Set default text color to white
-                        }}
-                        codeTagProps={{
-                            style: {
-                                backgroundColor: "transparent", // Remove background from highlighted text
-                            },
-                        }}
-                    >
-                        {outputValue}
-                    </SyntaxHighlighter>
-                </Box>
-            )}
+            {/* Footer */}
             <Footer />
         </Box>
     );
