@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { TextField, Button, Box, Typography, IconButton } from "@mui/material";
 import { ContentCopy } from "@mui/icons-material";
 import { toast } from "react-toastify";
+import { Tooltip } from '@mui/material';
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism"; // Dark theme
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Footer from "./Footer";
 
 const ProcessAWSCredentials = () => {
@@ -67,12 +68,12 @@ const ProcessAWSCredentials = () => {
                     <Typography variant="h3" gutterBottom sx={{ fontWeight: "bold", color: "#1976d2", textShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)" }}>
                         AWS Credentials Processor
                     </Typography>
-
+    
                     {/* Tagline */}
                     <Typography variant="h6" gutterBottom sx={{ fontStyle: "italic", color: "#555" }}>
                         Get your AWS credentials in the correct format, instantly.
                     </Typography>
-
+    
                     {/* Form */}
                     <form onSubmit={handleSubmit} style={{marginTop : '10px'}}>
                         <TextField
@@ -89,29 +90,41 @@ const ProcessAWSCredentials = () => {
                             sx={{ mb: 2 }}
                             required
                         />
-
+    
                         <Box sx={{ display: 'flex', gap: 2, justifyContent: "flex-end" }}>
-                            <Button type="submit" variant="contained" >
-                                Process
-                            </Button>
-                            <Button variant="outlined" color="secondary" onClick={handleReset}>
-                                Reset
-                            </Button>
+                            {/* Process Button with Tooltip */}
+                            <Tooltip title="Process the credentials">
+                                <Button type="submit" variant="contained">
+                                    Process
+                                </Button>
+                            </Tooltip>
+    
+                            {/* Reset Button with Tooltip */}
+                            <Tooltip title="Reset the input">
+                                <Button variant="outlined" color="secondary" onClick={handleReset}>
+                                    Reset
+                                </Button>
+                            </Tooltip>
                         </Box>
                     </form>
-
+    
                     {/* Output */}
                     {outputValue && (
                         <Box ref={resultRef} mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f5f5f5', padding: '16px', maxHeight: '300px', overflowY: 'auto' }}>
-                            <IconButton
-                                onClick={handleCopy}
-                                sx={{ position: 'absolute', top: '8px', right: '8px',backgroundColor: '#0d47a1', color: "white", '&:hover': { backgroundColor: '#fff', color: "#0d47a1" } }}
-                            >
-                                <ContentCopy />
-                            </IconButton>
-
-                            <Typography sx={{ textAlign: "left", color: '#1976d2' }} variant="h6" gutterBottom>Processed Credentials:</Typography>
-
+                            {/* Copy Button with Tooltip */}
+                            <Tooltip title="Copy Credentials">
+                                <IconButton
+                                    onClick={handleCopy}
+                                    sx={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: '#0d47a1', color: "white", '&:hover': { backgroundColor: '#fff', color: "#0d47a1" } }}
+                                >
+                                    <ContentCopy />
+                                </IconButton>
+                            </Tooltip>
+    
+                            <Typography sx={{ textAlign: "left", color: '#1976d2' }} variant="h6" gutterBottom>
+                                Processed Credentials:
+                            </Typography>
+    
                             {/* Code highlighter */}
                             <SyntaxHighlighter
                                 language="bash"
@@ -138,11 +151,12 @@ const ProcessAWSCredentials = () => {
                     )}
                 </Box>
             </Box>
-
+    
             {/* Footer */}
             <Footer />
         </Box>
     );
+    
 };
 
 export default ProcessAWSCredentials;
