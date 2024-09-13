@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TextField, Button, Box, Typography, IconButton } from "@mui/material";
 import { ContentCopy } from "@mui/icons-material";
 import { toast } from "react-toastify";
@@ -10,6 +10,9 @@ const ProcessAWSCredentials = () => {
     const [inputValue, setInputValue] = useState("");
     const [outputValue, setOutputValue] = useState("");
     const [error, setError] = useState(false);
+
+    const resultRef = useRef(null);
+
 
     // Function to process the input text
     const processText = (text) => {
@@ -48,6 +51,12 @@ const ProcessAWSCredentials = () => {
         setOutputValue("");
         setError(false);
     };
+
+    useEffect(() => {
+        if (outputValue && resultRef.current) {
+            resultRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [outputValue]);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
@@ -93,7 +102,7 @@ const ProcessAWSCredentials = () => {
 
                     {/* Output */}
                     {outputValue && (
-                        <Box mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f5f5f5', padding: '16px', maxHeight: '300px', overflowY: 'auto' }}>
+                        <Box ref={resultRef} mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f5f5f5', padding: '16px', maxHeight: '300px', overflowY: 'auto' }}>
                             <IconButton
                                 onClick={handleCopy}
                                 sx={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: '#fff', '&:hover': { backgroundColor: '#f0f0f0' } }}
