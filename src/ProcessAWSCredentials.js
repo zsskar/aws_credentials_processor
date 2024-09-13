@@ -122,7 +122,7 @@ const ProcessAWSCredentials = () => {
                     </SyntaxHighlighter>
                 </Box>
             )}
-            <Footer />
+            {/* <Footer /> */}
         </Box>
     );
 };
