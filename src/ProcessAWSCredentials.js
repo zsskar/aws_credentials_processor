@@ -91,7 +91,7 @@ const ProcessAWSCredentials = () => {
                         />
 
                         <Box sx={{ display: 'flex', gap: 2, justifyContent: "flex-end" }}>
-                            <Button type="submit" variant="contained" color="primary">
+                            <Button type="submit" variant="contained" >
                                 Process
                             </Button>
                             <Button variant="outlined" color="secondary" onClick={handleReset}>
@@ -105,7 +105,7 @@ const ProcessAWSCredentials = () => {
                         <Box ref={resultRef} mt={6} sx={{ position: 'relative', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f5f5f5', padding: '16px', maxHeight: '300px', overflowY: 'auto' }}>
                             <IconButton
                                 onClick={handleCopy}
-                                sx={{ position: 'absolute', top: '8px', right: '8px', backgroundColor: '#fff', '&:hover': { backgroundColor: '#f0f0f0' } }}
+                                sx={{ position: 'absolute', top: '8px', right: '8px',backgroundColor: '#0d47a1', color: "white", '&:hover': { backgroundColor: '#fff', color: "#0d47a1" } }}
                             >
                                 <ContentCopy />
                             </IconButton>
